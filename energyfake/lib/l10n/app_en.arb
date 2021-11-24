@@ -1,0 +1,14 @@
+{
+  "start": "Start",
+  "@start": {
+    "description": "start"
+  },
+  "howToUse": "How to Use",
+  "@howToUse": {
+    "description": "howToUse"
+  },
+  "disclaimer": "Disclaimer",
+  "@disclaimer": {
+    "description": "disclaimer"
+  }
+}
