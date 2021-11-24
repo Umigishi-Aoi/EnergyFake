@@ -1,3 +1,5 @@
 {
-  "helloWorld": "こんにちは世界！"
+  "start": "Start",
+  "howToUse": "How to Use",
+  "disclaimer": "免責事項"
 }

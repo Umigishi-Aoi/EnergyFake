@@ -1,6 +1,14 @@
 {
-  "helloWorld": "Hello World!",
-  "@helloWorld": {
-    "description": "The conventional newborn programmer greeting"
+  "start": "Start",
+  "@start": {
+    "description": "start"
+  },
+  "howToUse": "How to Use",
+  "@howToUse": {
+    "description": "howToUse"
+  },
+  "disclaimer": "Disclaimer",
+  "@disclaimer": {
+    "description": "disclaimer"
   }
 }
