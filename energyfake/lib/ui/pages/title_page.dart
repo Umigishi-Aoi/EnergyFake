@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../state/page_state.dart';
 
-class TitlePage extends StatelessWidget {
+class TitlePage extends ConsumerWidget {
   const TitlePage({Key? key}) : super(key: key);
 
   static const double _topMarginRatio = 0.05;
@@ -14,7 +16,7 @@ class TitlePage extends StatelessWidget {
   static const double _buttonMarginRatio = 0.1;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context,WidgetRef ref) {
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -50,10 +52,12 @@ class TitlePage extends StatelessWidget {
                     height: height * _startButtonHeightRatio,
                     width: width * _startButtonWidthRatio,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        ref.read(pageStateProvider.state).state = PageState.main;
+                      },
                       child: Text(
                         AppLocalizations.of(context)!.start,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 48,
                         ),
                       ),
