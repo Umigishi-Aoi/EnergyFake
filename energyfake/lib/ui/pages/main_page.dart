@@ -19,6 +19,11 @@ class _MainPageState extends ConsumerState<MainPage>
   //画像切り替え用フラグ
   bool _batteryFlag = false;
 
+  //画面非表示にするためのパラメータ
+  int _blackoutCounter = 0;
+  //点滅何セットで画面非表示にするか
+  static const int _blackoutTrigger = 5;
+
   @override
   void initState() {
     _ctrl = AnimationController(duration: duration, vsync: this)
@@ -31,6 +36,7 @@ class _MainPageState extends ConsumerState<MainPage>
         } else if (status == AnimationStatus.dismissed) {
           _ctrl.forward();
           _batteryFlag = false;
+          _blackoutCounter++;
         }
       });
     super.initState();
@@ -55,20 +61,25 @@ class _MainPageState extends ConsumerState<MainPage>
           backgroundColor: mainPageBackground,
           body: Stack(
             children: [
-              if (_batteryFlag)
-                Align(
-                  alignment: Alignment.center,
-                  child: Image.asset("images/battery_low.png"),
-                )
-              else
-                Align(
-                  alignment: Alignment.center,
-                  child: Image.asset("images/battery_empty.png"),
+              if (_blackoutCounter < _blackoutTrigger)
+                Stack(
+                  children: [
+                    if (_batteryFlag)
+                      Align(
+                        alignment: Alignment.center,
+                        child: Image.asset("images/battery_low.png"),
+                      )
+                    else
+                      Align(
+                        alignment: Alignment.center,
+                        child: Image.asset("images/battery_empty.png"),
+                      ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Image.asset("images/energy_cord.png"),
+                    )
+                  ],
                 ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Image.asset("images/energy_cord.png"),
-              )
             ],
           ),
         ),
