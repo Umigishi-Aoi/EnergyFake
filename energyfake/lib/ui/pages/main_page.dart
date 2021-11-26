@@ -11,25 +11,60 @@ class MainPage extends ConsumerStatefulWidget {
   ConsumerState<MainPage> createState() => _MainPageState();
 }
 
-class _MainPageState extends ConsumerState<MainPage> {
+class _MainPageState extends ConsumerState<MainPage>
+    with SingleTickerProviderStateMixin {
+  final duration = const Duration(seconds: 1);
+  late AnimationController _ctrl;
+
+  //画像切り替え用フラグ
+  bool _batteryFlag = false;
+
+  @override
+  void initState() {
+    _ctrl = AnimationController(duration: duration, vsync: this)
+      ..addListener(() => setState(() {}))
+      ..forward()
+      ..addStatusListener((status) {
+        if (status == AnimationStatus.completed) {
+          _ctrl.reverse();
+          _batteryFlag = true;
+        } else if (status == AnimationStatus.dismissed) {
+          _ctrl.forward();
+          _batteryFlag = false;
+        }
+      });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _ctrl.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){},
-      onLongPress: (){
+      onTap: () {},
+      onLongPress: () {
         ref.read(pageStateProvider.state).state = PageState.title;
       },
-
       child: SafeArea(
         bottom: false,
         child: Scaffold(
           backgroundColor: mainPageBackground,
           body: Stack(
             children: [
-              Align(
-                alignment: Alignment.center,
-                child: Image.asset("images/battery_empty.png"),
-              ),
+              if (_batteryFlag)
+                Align(
+                  alignment: Alignment.center,
+                  child: Image.asset("images/battery_low.png"),
+                )
+              else
+                Align(
+                  alignment: Alignment.center,
+                  child: Image.asset("images/battery_empty.png"),
+                ),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Image.asset("images/energy_cord.png"),
