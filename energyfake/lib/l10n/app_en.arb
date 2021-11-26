@@ -10,5 +10,13 @@
   "disclaimer": "Disclaimer",
   "@disclaimer": {
     "description": "disclaimer"
+  },
+  "howToUseContents": "This app will show the fake screen when the battery is empty.\n\nLong Press Screen \n=> back to the Title Page.",
+  "@howToUseContents": {
+    "description": "howToUseContents"
+  },
+  "back": "Back",
+  "@back": {
+    "description": "back"
   }
 }

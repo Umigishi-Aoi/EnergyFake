@@ -1,5 +1,7 @@
 {
   "start": "Start",
   "howToUse": "How to Use",
-  "disclaimer": "免責事項"
+  "disclaimer": "免責事項",
+  "howToUseContents": "このアプリはバッテリーがない時の画面を偽の画面で表示します.\n\n画面長押し \n=> タイトルに戻ります.",
+  "back": "Back"
 }
