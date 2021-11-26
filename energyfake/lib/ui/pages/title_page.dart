@@ -1,7 +1,10 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+import '../dialog/how_to_use_dialog.dart';
 import '../../state/page_state.dart';
 
 class TitlePage extends ConsumerWidget {
@@ -52,7 +55,11 @@ class TitlePage extends ConsumerWidget {
                     height: height * _startButtonHeightRatio,
                     width: width * _startButtonWidthRatio,
                     child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async{
+                        SharedPreferences prefs = await SharedPreferences.getInstance();
+                        if(prefs.getString('howToUseDone') == null) {
+                          showHowToUseDialog(context);
+                        }
                         ref.read(pageStateProvider.state).state = PageState.main;
                       },
                       child: Text(
@@ -75,7 +82,9 @@ class TitlePage extends ConsumerWidget {
                           height: height * _buttonHeightRatio,
                           width: width * _buttonWidthRatio,
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              showHowToUseDialog(context);
+                            },
                             child: Text(AppLocalizations.of(context)!.howToUse),
                           ),
                         ),
