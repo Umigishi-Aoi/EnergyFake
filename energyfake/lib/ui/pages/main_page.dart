@@ -51,7 +51,13 @@ class _MainPageState extends ConsumerState<MainPage>
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        if (_blackoutCounter >= _blackoutTrigger){
+          setState(() {
+            _blackoutCounter = 0;
+          });
+        }
+      },
       onLongPress: () {
         ref.read(pageStateProvider.state).state = PageState.title;
       },
