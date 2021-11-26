@@ -18,5 +18,9 @@
   "back": "Back",
   "@back": {
     "description": "back"
+  },
+  "disclaimerContents": " By using this application, you are deemed to have agreed to this disclaimer.\n The download and use of this application shall be done at the user's own risk.\n We are not responsible for any damage (whether tangible or intangible) caused by using this application.\n Please use at your own risk.\n This app does not guarantee the accuracy, usefulness, up-to-dateness, appropriateness, etc. of all the information provided in this application to the user.\n Customers are responsible for the communication charges when using this application.\n The contents and information of this application are subject to change without notice.\n The contents of this policy are subject to change without notice.",
+  "@disclaimerContents": {
+    "description": "disclaimerContents label"
   }
 }

@@ -1,9 +1,11 @@
 
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../dialog/disclaimer_dialog.dart';
 import '../dialog/how_to_use_dialog.dart';
 import '../../state/page_state.dart';
 
@@ -92,7 +94,9 @@ class TitlePage extends ConsumerWidget {
                           height: height * _buttonHeightRatio,
                           width: width * _buttonWidthRatio,
                           child: ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              showDisclaimerDialog(context);
+                            },
                             child: Text(AppLocalizations.of(context)!.disclaimer),
                           ),
                         ),
