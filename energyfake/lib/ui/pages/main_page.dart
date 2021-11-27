@@ -53,6 +53,7 @@ class _MainPageState extends ConsumerState<MainPage>
         _battery.onBatteryStateChanged.listen((BatteryState state) {
           setState(() {
             _batteryState = state;
+            _blackoutCounter = 0;
           });
         });
 
@@ -87,28 +88,38 @@ class _MainPageState extends ConsumerState<MainPage>
           backgroundColor: mainPageBackground,
           body: Stack(
             children: [
-              //テスト用コード
-              Align(
-                alignment: Alignment.topCenter,
-                child: Text("$_batteryState"),
-              ),
               if (_blackoutCounter < _blackoutTrigger)
                 Stack(
                   children: [
-                    if (_batteryFlag)
-                      Align(
-                        alignment: Alignment.center,
-                        child: Image.asset("images/battery_low.png"),
-                      )
-                    else
-                      Align(
-                        alignment: Alignment.center,
-                        child: Image.asset("images/battery_empty.png"),
-                      ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Image.asset("images/energy_cord.png"),
+                    if( _batteryState == BatteryState.charging
+                        ||_batteryState == BatteryState.full )
+                    Stack(
+                      children: [
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Image.asset("images/cord.png"),
+                        )
+                      ],
                     )
+                    else
+                      Stack(
+                        children: [
+                          if (_batteryFlag)
+                            Align(
+                              alignment: Alignment.center,
+                              child: Image.asset("images/battery_low.png"),
+                            )
+                          else
+                            Align(
+                              alignment: Alignment.center,
+                              child: Image.asset("images/battery_empty.png"),
+                            ),
+                          Align(
+                            alignment: Alignment.bottomCenter,
+                            child: Image.asset("images/energy_cord.png"),
+                          )
+                        ],
+                      ),
                   ],
                 ),
             ],
