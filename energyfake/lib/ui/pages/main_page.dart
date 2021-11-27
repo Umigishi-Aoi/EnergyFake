@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:battery_plus/battery_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -24,6 +27,12 @@ class _MainPageState extends ConsumerState<MainPage>
   //点滅何セットで画面非表示にするか
   static const int _blackoutTrigger = 5;
 
+  //充電状態の検知のために、バッテリー関連フィールドを設定
+  final Battery _battery = Battery();
+
+  BatteryState? _batteryState;
+  StreamSubscription<BatteryState>? _batteryStateSubscription;
+
   @override
   void initState() {
     _ctrl = AnimationController(duration: duration, vsync: this)
@@ -39,12 +48,23 @@ class _MainPageState extends ConsumerState<MainPage>
           _blackoutCounter++;
         }
       });
+
+    _batteryStateSubscription =
+        _battery.onBatteryStateChanged.listen((BatteryState state) {
+          setState(() {
+            _batteryState = state;
+          });
+        });
+
     super.initState();
   }
 
   @override
   void dispose() {
     _ctrl.dispose();
+    if (_batteryStateSubscription != null) {
+      _batteryStateSubscription!.cancel();
+    }
     super.dispose();
   }
 
@@ -67,6 +87,11 @@ class _MainPageState extends ConsumerState<MainPage>
           backgroundColor: mainPageBackground,
           body: Stack(
             children: [
+              //テスト用コード
+              Align(
+                alignment: Alignment.topCenter,
+                child: Text("$_batteryState"),
+              ),
               if (_blackoutCounter < _blackoutTrigger)
                 Stack(
                   children: [
