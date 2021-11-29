@@ -24,6 +24,7 @@ class _MainPageState extends ConsumerState<MainPage>
 
   //画面非表示にするためのパラメータ
   int _blackoutCounter = 0;
+
   //点滅何セットで画面非表示にするか
   static const int _blackoutTrigger = 5;
 
@@ -32,6 +33,9 @@ class _MainPageState extends ConsumerState<MainPage>
 
   BatteryState? _batteryState;
   StreamSubscription<BatteryState>? _batteryStateSubscription;
+
+  static const double _batteryPictureWidthRatio = 0.35;
+  static const double _cordPictureHeightRatio = 0.25;
 
   @override
   void initState() {
@@ -51,11 +55,11 @@ class _MainPageState extends ConsumerState<MainPage>
 
     _batteryStateSubscription =
         _battery.onBatteryStateChanged.listen((BatteryState state) {
-          setState(() {
-            _batteryState = state;
-            _blackoutCounter = 0;
-          });
-        });
+      setState(() {
+        _batteryState = state;
+        _blackoutCounter = 0;
+      });
+    });
 
     super.initState();
   }
@@ -71,9 +75,12 @@ class _MainPageState extends ConsumerState<MainPage>
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width;
+
     return GestureDetector(
       onTap: () {
-        if (_blackoutCounter >= _blackoutTrigger){
+        if (_blackoutCounter >= _blackoutTrigger) {
           setState(() {
             _blackoutCounter = 0;
           });
@@ -91,32 +98,56 @@ class _MainPageState extends ConsumerState<MainPage>
               if (_blackoutCounter < _blackoutTrigger)
                 Stack(
                   children: [
-                    if( _batteryState == BatteryState.charging
-                        ||_batteryState == BatteryState.full )
-                    Stack(
-                      children: [
-                        Align(
-                          alignment: Alignment.center,
-                          child: Image.asset("images/battery_low.png"),
-                        )
-                      ],
-                    )
+                    if (_batteryState == BatteryState.charging ||
+                        _batteryState == BatteryState.full)
+                      Stack(
+                        children: [
+                          Align(
+                            alignment: Alignment.center,
+                            child: SizedBox(
+                              width: width * _batteryPictureWidthRatio,
+                              child: Image.asset(
+                                "images/battery_low.png",
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          )
+                        ],
+                      )
                     else
                       Stack(
                         children: [
                           if (_batteryFlag)
                             Align(
                               alignment: Alignment.center,
-                              child: Image.asset("images/battery_low.png"),
+                              child: SizedBox(
+                                width: width * _batteryPictureWidthRatio,
+                                child: Image.asset(
+                                  "images/battery_low.png",
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
                             )
                           else
                             Align(
                               alignment: Alignment.center,
-                              child: Image.asset("images/battery_empty.png"),
+                              child: SizedBox(
+                                width: width * _batteryPictureWidthRatio,
+                                child: Image.asset(
+                                  "images/battery_empty.png",
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
                             ),
                           Align(
                             alignment: Alignment.bottomCenter,
-                            child: Image.asset("images/energy_cord.png"),
+                            child: SizedBox(
+                              height: height * _cordPictureHeightRatio,
+                              child: Image.asset(
+                                "images/energy_cord.png",
+                                fit: BoxFit.cover,
+                              ),
+                            ),
                           )
                         ],
                       ),
