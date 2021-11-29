@@ -96,8 +96,8 @@ class _MainPageState extends ConsumerState<MainPage>
                     Stack(
                       children: [
                         Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Image.asset("images/cord.png"),
+                          alignment: Alignment.center,
+                          child: Image.asset("images/battery_low.png"),
                         )
                       ],
                     )
