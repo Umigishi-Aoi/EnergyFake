@@ -7,6 +7,10 @@ import 'ui/home.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
 
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
+
   SystemChrome.setEnabledSystemUIMode(
     SystemUiMode.immersive,
     overlays: <SystemUiOverlay>[],
