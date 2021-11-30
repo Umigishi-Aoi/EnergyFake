@@ -11,7 +11,7 @@
   "@disclaimer": {
     "description": "disclaimer"
   },
-  "howToUseContents": "This app will show the fake screen when the battery is empty.\n\nLong Press Screen \n=> back to the Title Page.",
+  "howToUseContents": "This app will show the fake screen when the battery is empty.\n※The screen disappears after a certain period of time.\n\n・Tap Screen\n　=> Redisplay the screen.\n・Long Press Screen \n　=> Return to the Title Page.\n・Connect the charging cable \n　=> The image changes.",
   "@howToUseContents": {
     "description": "howToUseContents"
   },
