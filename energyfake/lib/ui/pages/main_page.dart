@@ -40,16 +40,19 @@ class _MainPageState extends ConsumerState<MainPage>
   @override
   void initState() {
     _ctrl = AnimationController(duration: duration, vsync: this)
-      ..addListener(() => setState(() {}))
       ..forward()
       ..addStatusListener((status) {
         if (status == AnimationStatus.completed) {
-          _ctrl.reverse();
-          _batteryFlag = true;
+          setState(() {
+            _ctrl.reverse();
+            _batteryFlag = true;
+          });
         } else if (status == AnimationStatus.dismissed) {
-          _ctrl.forward();
-          _batteryFlag = false;
-          _blackoutCounter++;
+          setState(() {
+            _ctrl.forward();
+            _batteryFlag = false;
+            _blackoutCounter++;
+          });
         }
       });
 
